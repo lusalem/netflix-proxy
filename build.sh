@@ -176,9 +176,37 @@ sudo iptables -t nat -A PREROUTING -i ${IFACE} -p tcp --dport 80 -j REDIRECT --t
   && sudo iptables -A INPUT -m state --state RELATED,ESTABLISHED -j ACCEPT\
   && sudo iptables -A INPUT -p udp -m udp --dport 53 -j ACCEPT\
   && sudo iptables -A INPUT -p udp -m udp --dport 5353 -j ACCEPT\
+  && sudo iptables -A INPUT -p udp -m udp --dport 5201 -j ACCEPT\
+  && sudo iptables -A INPUT -p udp -m udp --dport 9000 -j ACCEPT\
+  && sudo iptables -A INPUT -p udp -m udp --dport 62100 -j ACCEPT\
+  && sudo iptables -A INPUT -p udp -m udp --dport 10000 -j ACCEPT\
+  && sudo iptables -A INPUT -p udp -m udp --dport 11000 -j ACCEPT\
+  && sudo iptables -A INPUT -p udp -m udp --dport 12000 -j ACCEPT\
+  && sudo iptables -A INPUT -p udp -m udp --dport 13000 -j ACCEPT\
+  && sudo iptables -A INPUT -p udp -m udp --dport 14000 -j ACCEPT\
+  && sudo iptables -A INPUT -p udp -m udp --dport 15000 -j ACCEPT\
+  && sudo iptables -A INPUT -p udp -m udp --dport 16000 -j ACCEPT\
+  && sudo iptables -A INPUT -p udp -m udp --dport 17000 -j ACCEPT\
+  && sudo iptables -A INPUT -p udp -m udp --dport 18000 -j ACCEPT\
+  && sudo iptables -A INPUT -p udp -m udp --dport 19000 -j ACCEPT\
+  && sudo iptables -A INPUT -p udp -m udp --dport 20000 -j ACCEPT\
   && sudo iptables -A INPUT -p tcp -m tcp --dport 80 -j ACCEPT\
   && sudo iptables -A INPUT -p tcp -m tcp --dport 8080 -j ACCEPT\
   && sudo iptables -A INPUT -p tcp -m tcp --dport 443 -j ACCEPT\
+  && sudo iptables -A INPUT -p tcp -m tcp --dport 5201 -j ACCEPT\
+  && sudo iptables -A INPUT -p tcp -m tcp --dport 9000 -j ACCEPT\
+  && sudo iptables -A INPUT -p tcp -m tcp --dport 62100 -j ACCEPT\
+  && sudo iptables -A INPUT -p tcp -m tcp --dport 10000 -j ACCEPT\
+  && sudo iptables -A INPUT -p tcp -m tcp --dport 11000 -j ACCEPT\
+  && sudo iptables -A INPUT -p tcp -m tcp --dport 12000 -j ACCEPT\
+  && sudo iptables -A INPUT -p tcp -m tcp --dport 13000 -j ACCEPT\
+  && sudo iptables -A INPUT -p tcp -m tcp --dport 14000 -j ACCEPT\
+  && sudo iptables -A INPUT -p tcp -m tcp --dport 15000 -j ACCEPT\
+  && sudo iptables -A INPUT -p tcp -m tcp --dport 16000 -j ACCEPT\
+  && sudo iptables -A INPUT -p tcp -m tcp --dport 17000 -j ACCEPT\
+  && sudo iptables -A INPUT -p tcp -m tcp --dport 18000 -j ACCEPT\
+  && sudo iptables -A INPUT -p tcp -m tcp --dport 19000 -j ACCEPT\
+  && sudo iptables -A INPUT -p tcp -m tcp --dport 20000 -j ACCEPT\
   && sudo iptables -A INPUT -j REJECT --reject-with icmp-host-prohibited
 log_action_end_msg $?
 
