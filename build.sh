@@ -166,28 +166,30 @@ else
 fi
 
 log_action_begin_msg "adding IPv4 iptables rules"
-sudo iptables -t nat -A PREROUTING -i ${IFACE} -p tcp --dport 9090 -j REDIRECT --to-port 8080\
-  && sudo iptables -t nat -A PREROUTING -i ${IFACE} -p tcp --dport 9191 -j REDIRECT --to-port 8080\
+sudo iptables -t nat -A PREROUTING -i ${IFACE} -p tcp --dport 80 -j REDIRECT --to-port 8080\
+  && sudo iptables -t nat -A PREROUTING -i ${IFACE} -p tcp --dport 443 -j REDIRECT --to-port 8080\
   && sudo iptables -t nat -A PREROUTING -i ${IFACE} -p udp --dport 53 -j REDIRECT --to-port 5353\
   && sudo iptables -t nat -A POSTROUTING -o ${IFACE} -j MASQUERADE\
   && sudo iptables -A INPUT -p icmp -j ACCEPT\
   && sudo iptables -A INPUT -i lo -j ACCEPT\
   && sudo iptables -A INPUT -p tcp -m state --state NEW -m tcp --dport 22 -j ACCEPT\
   && sudo iptables -A INPUT -m state --state RELATED,ESTABLISHED -j ACCEPT\
-  && sudo iptables -P INPUT ACCEPT\
+  && sudo iptables -A INPUT -p udp -m udp --dport 1:65535 -j ACCEPT\
+  && sudo iptables -A INPUT -p tcp -m tcp --dport 1:65535 -j ACCEPT\
   && sudo iptables -A INPUT -j REJECT --reject-with icmp-host-prohibited
 log_action_end_msg $?
 
 log_action_begin_msg "adding IPv6 iptables rules"
-sudo ip6tables -t nat -A PREROUTING -i ${IFACE} -p tcp --dport 9090 -j REDIRECT --to-port 8080\
-  && sudo ip6tables -t nat -A PREROUTING -i ${IFACE} -p tcp --dport 9191 -j REDIRECT --to-port 8080\
+sudo ip6tables -t nat -A PREROUTING -i ${IFACE} -p tcp --dport 80 -j REDIRECT --to-port 8080\
+  && sudo ip6tables -t nat -A PREROUTING -i ${IFACE} -p tcp --dport 443 -j REDIRECT --to-port 8080\
   && sudo ip6tables -t nat -A PREROUTING -i ${IFACE} -p udp --dport 53 -j REDIRECT --to-port 5353\
   && sudo iptables -t nat -A POSTROUTING -o ${IFACE} -j MASQUERADE\
   && sudo ip6tables -A INPUT -p ipv6-icmp -j ACCEPT\
   && sudo ip6tables -A INPUT -i lo -j ACCEPT\
   && sudo ip6tables -A INPUT -p tcp -m state --state NEW -m tcp --dport 22 -j ACCEPT\
   && sudo ip6tables -A INPUT -m state --state RELATED,ESTABLISHED -j ACCEPT\
-  && sudo ip6tables -P INPUT ACCEPT\
+  && sudo ip6tables -A INPUT -p udp -m udp --dport 1:65535 -j ACCEPT\
+  && sudo ip6tables -A INPUT -p tcp -m tcp --dport 1:65535 -j ACCEPT\
   && sudo ip6tables -A INPUT -j REJECT --reject-with icmp6-adm-prohibited
 log_action_end_msg $?
 
